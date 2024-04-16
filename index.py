@@ -19,9 +19,8 @@ class Indexer:
     def __init__(self, wiki: str, title: str, doc: str, word: str):
         """
         The constructor for the indexer.
-        DO NOT MODIFY THIS CONSTRUCTOR.
-
-        Note that the output files may be overwritten if they already exist.
+        
+     
         
         Parameters:
         wiki        the filename of the input wiki
@@ -84,8 +83,6 @@ class Indexer:
         Runs the indexer by parsing the document, computing term relevance and
         page rank, and writing the results to the titles/docs/words output
         files
-
-        DO NOT MODIFY THIS METHOD.
         """
         try:
             self.parse()
@@ -105,7 +102,7 @@ class Indexer:
         """
         Checks if word is a stop word, converts it to lowercase, and stems it
 
-        DO NOT MODIFY THIS METHOD.
+      
 
         Parameters:
             word        the word to check
@@ -121,7 +118,7 @@ class Indexer:
         """
         Checks if the word is a link (surrounded by '[[' and ']]')
 
-        DO NOT MODIFY THIS METHOD.
+       
 
         Parameters:
             word        the word to check
@@ -136,7 +133,6 @@ class Indexer:
         Splits a link (assumed to be surrounded by '[[' and ']]') into the text
         and the destination of the link
 
-        DO NOT MODIFY THIS METHOD.
 
         Example usage:
         link_text, link_dest = split_link(link_str)
@@ -180,11 +176,7 @@ class Indexer:
             a list of the tokens in the title and the body
         """
         listed = []
-        # if self.word_is_link is True:
-
-        # for wiki_page in wiki_xml_root:
-        #     page_title = wiki_page.find("title").text.strip()
-        #     for items in title:
+      
         cool_tokens = re.findall(self.tokenization_regex, title + " " + body)
 
         for w in cool_tokens:
@@ -233,8 +225,7 @@ class Indexer:
         wiki_tree = et.parse(self.wiki)
         wiki_xml_root = wiki_tree.getroot()
 
-        # TODO: go through the pages of the wiki and update all of the relevant
-        # dicts, calling on helper methods as needed
+    
         for wiki_page in tqdm(wiki_xml_root):
                 page_title = wiki_page.find("title").text.strip()
                 page_id =  int(wiki_page.find("id").text.strip())
@@ -263,31 +254,19 @@ class Indexer:
         Returns:
             a dictionary mapping every word to its term frequency
         """
-        # for word, worddict in self.words_to_doc_frequency.items():
-        #     result[word]={}
-        #     for id, freq in worddict.items():
-        #         result[word][id] = freq / self.ids_to_max_counts[id]
+        id]
         result = {}
         for word, worddict in self.words_to_doc_frequency.items():
-       # for word in self.words_to_doc_frequency:
             result[word]={}
             for id, freq in worddict.items():
-            #for id in self.words_to_doc_frequency[word]:
+           
                freq = self.words_to_doc_frequency[word][id]
                if (freq / self.ids_to_max_counts[id]) == 0:
                   continue
                result[word][id] = freq / self.ids_to_max_counts[id]
-            #    print (result)
-            #   print(freq)
-        # print (result)
-        return result
-        # result =   self.words_to_doc_frequency 
-        # for word in result:
-        #     pg = result[word]
-        #     for id in pg:
-        #         pg[id] = pg[id] / self.ids_to_max_counts[id]
-        # return result
 
+        return result
+        
     def compute_idf(self) -> dict[str, float]:
         """
         Computes idf metric based on words_to_doc_frequency
@@ -304,7 +283,7 @@ class Indexer:
         for word, worddict in self.words_to_doc_frequency.items():
             inddoc = len(worddict)
             result[word] = math.log(numofdoc/inddoc)
-            # print (result)
+          
         return result
 
     def compute_term_relevance(self) -> dict[str, dict[int, float]]:
@@ -318,8 +297,7 @@ class Indexer:
             a dictionary mapping every every term to a dictionary mapping a page
             id to the relevance metric for that term and page
         """
-        #dict[str, dict[int, float]]
-        #dict[str, float]
+    
         result = {}
         term = self.compute_tf()
         idf = self.compute_idf()
@@ -327,15 +305,9 @@ class Indexer:
             result[word]={}
             for id in worddict:
             
-            #   for key, value in term.items() :
-            #        for k in value:
-            #           tf = value[k]
-            #         #   print (tf)
-            #   for ki in idf:
-            #          idfval = idf[ki]
-             #print (result)
+           
                 result[word][id] =  term[word][id] * idf[word]
-        # print (result)
+    
         return result
 
     def distance(self, dict_a: dict[int, float], dict_b: dict[int, float]) -> float:
@@ -343,7 +315,6 @@ class Indexer:
         Computes the Euclidean distance between two PageRank dictionaries
         Only to be called by compute_page_rank
 
-        DO NOT MODIFY THIS METHOD.
 
         Parameters:
             dict_a          the first dictionary
@@ -369,8 +340,6 @@ class Indexer:
 
         Assumes parse has already been called to populate the relevant data
         structures.
-
-        DO NOT MODIFY THIS METHOD.
 
         Returns
             a dictionary from page ids to a dictionaries from page ids to
@@ -446,13 +415,7 @@ class Indexer:
                 rprime[j] = 0.0
                 for k in self.ids_to_titles: 
                     rprime[j] +=  (weight[k][j] * r[k])
-                # for pagej in weight.keys():
-                #     for pagek in weight[pagej]:
-                #      newlistk = [x for x in pagek * r[pagek]]
-                #      newlistj = [x for x in pagej * r[pagek]]
-                #      rprime[pagej] = sum(newlistk) + sum(newlistj) 
-        # TODO: implement this
-        # clearprint(rprime)
+                
         return rprime
     
 
