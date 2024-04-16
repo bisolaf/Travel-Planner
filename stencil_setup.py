@@ -1,6 +1,4 @@
-# stencil_setup.py
-# When you start the assignment, run this file to make sure your
-# stencil environment is configured correctly.  
+
 
 import nltk
 from nltk.corpus import stopwords
