@@ -2,8 +2,7 @@ import pytest
 from index import Indexer
 import math
 
-# Here's an example test case to make sure your tests are working
-# Remember that all test functions must start with "test"
+
 def test_example():
     assert 2 == 1 + 1
 
@@ -85,23 +84,11 @@ def test_compute_idf():
 
 
 def test_compute_term_relevance():
-      # test_index = Indexer("wikis/test_tf_idf.xml", "test_titles.txt",
-      #  "test_docs.txt", "test_words.txt")
-      # test_index.parse()
-      # dicttv = test_index.compute_term_relevance()
-      # assert dicttv["dog"][2] == pytest.approx(0.405, abs=1e-3)
+     
       nigeria_index = Indexer("wikis/ExampleWiki.xml", "nigeria_titles.txt",
        "nigeria_docs.txt", "nigeria_words.txt")
-      # assert dicttv.get("bit") == {1: 0.4054651081081644, 3: 0.2027325540540822}
       nigeria_index.parse()
-    #   nigeria_dict_tf = nigeria_index.compute_tf()
-    #   assert nigeria_dict_tf["nigeria"][1] == 0.5
-    #   assert nigeria_dict_tf["home"][1] == 1
-    #   nigeria_dict_idf = nigeria_index.compute_idf()
-    #   assert nigeria_dict_idf["home"] == pytest.approx(0.693, abs=1e-3)
-    #   assert nigeria_dict_idf["nigeria"] == pytest.approx(math.log(1))
       nigeria_dict_tv = nigeria_index.compute_term_relevance()
-      #assert nigeria_dict_tv["west"][2] == (pytest.approx((math.log(1/2) * 0.5), abs=1e-3)) * 
       assert nigeria_dict_tv["home"][1] == pytest.approx(0.693 * 1, abs=1e-3)
       assert nigeria_dict_tv.get("africa") == {2: 0.23104906018664842}
       with pytest.raises( KeyError):
