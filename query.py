@@ -56,18 +56,9 @@ class Querier:
         score = 0
         score= int(self.ids_to_relevance_scores[doc] * self.ids_to_pageranks[doc])
         
-        # score = int(self.ids_to_relevance_scores[doc] + self.ids_to_pageranks[doc])
-        
-        # score = int(self.ids_to_relevance_scores[doc] + 1/2 * self.ids_to_pageranks[doc])
-
-        #score = int((self.ids_to_relevance_scores[doc] + self.ids_to_pageranks[doc])/2)
-
-        # score = int(1/2 * self.ids_to_relevance_scores[doc] + self.ids_to_pageranks[doc])
-
-        # score = int(self.ids_to_relevance_scores[doc] / self.ids_to_pageranks[doc])
-
+    
        
-        return score # TODO: fixme
+        return score 
 
     def handle_query(self, user_query: str):
         """
@@ -100,7 +91,7 @@ class Querier:
         result_ids = list(self.ids_to_relevance_scores.keys())
 
         # sort the ids based on the relevance in the ids_to_relevance_scores
-        # dictionary
+    
         result_ids.sort(reverse=True, key=self.ranking_function)
 
         print("---------" + "\n")
